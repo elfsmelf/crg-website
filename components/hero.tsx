@@ -58,7 +58,7 @@ export function Hero() {
 
             {/* Subheadline */}
             <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
-              QBCC Licensed. Fully Insured. Quote within 24 hours. From tenancy fitouts to 24/7 emergency repairs.
+              We specialise exclusively in commercial electrical work. No residential jobs – just dedicated expertise for Gold Coast businesses.
             </p>
 
             {/* Value Props */}
