@@ -8,9 +8,9 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" })
 
 export const metadata: Metadata = {
-  title: "CRG Electrical Contracting Services | Gold Coast Electricians",
+  title: "CRG Electrical Pty Ltd | Gold Coast and Brisbane Commercial & Industrial Electricians",
   description:
-    "CRG Electrical Contractors - Your Gold Coast & Northern Rivers Commercial, Light Industrial, and Residential Electricians. 24/7 Emergency Call-outs Available.",
+    "CRG Electrical Pty Ltd - Your Tweed Coast to Brisbane Commercial and Industrial Electricians. Quotes actioned immediately.",
 }
 
 export default function RootLayout({

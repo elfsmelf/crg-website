@@ -3,7 +3,7 @@
 import React from "react"
 
 import Image from "next/image"
-import { Shield, Clock, Star, CheckCircle2 } from "lucide-react"
+import { Shield, Star, CheckCircle2 } from "lucide-react"
 import { useState } from "react"
 
 export function Hero() {
@@ -22,11 +22,11 @@ export function Hero() {
   }
 
   return (
-    <section className="relative min-h-[700px] lg:min-h-[800px] overflow-hidden">
+    <section className="relative min-h-[auto] lg:min-h-[800px] overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-bg.jpg"
+          src="https://assets.guestsnapper.com/wedding-gallery-media/sheraton%20lobby.jpg"
           alt="Commercial building interior"
           fill
           className="object-cover"
@@ -39,62 +39,58 @@ export function Hero() {
       <div className="relative container mx-auto px-4 lg:px-8 py-12 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left Column - Value Proposition */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#216597]/20 border border-[#216597]/30 rounded-full px-4 py-2">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-sm text-white">Trusted by TSS, Victoria & Albert & Gold Coast Businesses</span>
+            <div className="inline-flex items-center gap-2 bg-[#216597]/20 border border-[#216597]/30 rounded-full px-3 sm:px-4 py-2">
+              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-white">Trusted by Sheraton Grand Mirage Resort, Tailored Project Group & Gold Coast Businesses</span>
             </div>
 
             {/* Main Headline */}
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight font-[family-name:var(--font-heading)] mb-4">
-                Gold Coast Commercial Electricians
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight font-[family-name:var(--font-heading)] mb-3 sm:mb-4">
+                Gold Coast and Brisbane, Commercial & Industrial Electricians
               </h1>
-              <p className="text-xl md:text-2xl text-[#216597] font-medium">
+              <p className="text-lg sm:text-xl md:text-2xl text-[#5eb3e4] font-medium">
                 Fitouts &bull; Maintenance &bull; Emergency Repairs
               </p>
             </div>
 
             {/* Subheadline */}
-            <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
-              We specialise exclusively in commercial electrical work. No residential jobs – just dedicated expertise for Gold Coast businesses.
+            <p className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
+              We specialise exclusively in commercial electrical work. No residential jobs – just dedicated expertise for Gold Coast & Brisbane businesses.
             </p>
 
             {/* Value Props */}
             <div className="grid sm:grid-cols-2 gap-4">
               {[
-                "Quotes within 24 hours",
+                "Quotes actioned immediately",
                 "Fixed pricing – no surprises",
                 "We work around your hours",
                 "Never subcontracted"
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#216597] flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[#5eb3e4] flex-shrink-0" />
                   <span className="text-white text-sm">{item}</span>
                 </div>
               ))}
             </div>
 
             {/* Trust Signals */}
-            <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-white/10">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 border-t border-white/10">
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-[#216597]" />
-                <span className="text-sm text-gray-400">QBCC Lic. 85658</span>
+                <Shield className="w-4 sm:w-5 h-4 sm:h-5 text-[#5eb3e4]" />
+                <span className="text-xs sm:text-sm text-gray-400">Electrical Contractors Lic# 1509847</span>
               </div>
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-[#216597]" />
-                <span className="text-sm text-gray-400">ACRS A047073</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-[#216597]" />
-                <span className="text-sm text-gray-400">24/7 Emergency</span>
+                <Shield className="w-4 sm:w-5 h-4 sm:h-5 text-[#5eb3e4]" />
+                <span className="text-xs sm:text-sm text-gray-400">ACRS A047073</span>
               </div>
             </div>
           </div>
 
           {/* Right Column - Quote Form */}
-          <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-2xl">
+          <div id="quote-form" className="bg-white rounded-2xl p-6 lg:p-8 shadow-2xl scroll-mt-24">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Get Your Free Quote</h2>
               <p className="text-gray-600 text-sm">{"We'll call you within 4 business hours"}</p>
