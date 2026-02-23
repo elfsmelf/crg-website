@@ -14,6 +14,7 @@ interface FormData {
   name: string
   phone: string
   email: string
+  suburb: string
   jobType: string
   description: string
 }
@@ -183,6 +184,20 @@ export function Hero() {
                   placeholder="your@email.com"
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="suburb" className="block text-sm font-medium text-gray-700 mb-1">
+                  Suburb *
+                </label>
+                <input
+                  type="text"
+                  id="suburb"
+                  {...register("suburb", { required: "Suburb is required" })}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 ${errors.suburb ? "border-red-500" : "border-gray-300"}`}
+                  placeholder="Your suburb"
+                />
+                {errors.suburb && <p className="text-red-500 text-xs mt-1">{errors.suburb.message}</p>}
               </div>
 
               <div>
