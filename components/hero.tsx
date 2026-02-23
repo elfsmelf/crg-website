@@ -5,25 +5,30 @@ import React from "react"
 import Image from "next/image"
 import { Shield, Star, CheckCircle2 } from "lucide-react"
 import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { useSourcebuster } from "@/hooks/use-sourcebuster"
 
 const WEBHOOK_URL = "https://hook.us1.make.com/4mpv343jh3ft17qyb611x8nspsie6mu7"
 
+interface FormData {
+  name: string
+  phone: string
+  email: string
+  jobType: string
+  description: string
+}
+
 export function Hero() {
   const trackingData = useSourcebuster()
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    jobType: "",
-    description: ""
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>()
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const onSubmit = async (formData: FormData) => {
     setSubmitStatus("idle")
 
     const payload = {
@@ -56,11 +61,9 @@ export function Hero() {
       if (!response.ok) throw new Error("Failed to submit")
 
       setSubmitStatus("success")
-      setFormData({ name: "", phone: "", email: "", jobType: "", description: "" })
+      reset()
     } catch {
       setSubmitStatus("error")
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -139,7 +142,7 @@ export function Hero() {
               <p className="text-gray-600 text-sm">{"Quotes actioned immediately"}</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Name *
@@ -147,12 +150,11 @@ export function Hero() {
                 <input
                   type="text"
                   id="name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900"
+                  {...register("name", { required: "Name is required" })}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 ${errors.name ? "border-red-500" : "border-gray-300"}`}
                   placeholder="Your name"
                 />
+                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
               </div>
 
               <div>
@@ -162,12 +164,11 @@ export function Hero() {
                 <input
                   type="tel"
                   id="phone"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900"
+                  {...register("phone", { required: "Phone number is required" })}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 ${errors.phone ? "border-red-500" : "border-gray-300"}`}
                   placeholder="Your phone number"
                 />
+                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
               </div>
 
               <div>
@@ -177,12 +178,11 @@ export function Hero() {
                 <input
                   type="email"
                   id="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900"
+                  {...register("email", { required: "Email is required" })}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 ${errors.email ? "border-red-500" : "border-gray-300"}`}
                   placeholder="your@email.com"
                 />
+                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
               </div>
 
               <div>
@@ -191,10 +191,8 @@ export function Hero() {
                 </label>
                 <select
                   id="jobType"
-                  required
-                  value={formData.jobType}
-                  onChange={(e) => setFormData({...formData, jobType: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 bg-white"
+                  {...register("jobType", { required: "Please select a job type" })}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 bg-white ${errors.jobType ? "border-red-500" : "border-gray-300"}`}
                 >
                   <option value="">Select job type...</option>
                   <option value="commercial-fitout">Commercial Fitout</option>
@@ -203,6 +201,7 @@ export function Hero() {
                   <option value="emergency">Emergency</option>
                   <option value="other">Other</option>
                 </select>
+                {errors.jobType && <p className="text-red-500 text-xs mt-1">{errors.jobType.message}</p>}
               </div>
 
               <div>
@@ -212,8 +211,7 @@ export function Hero() {
                 <textarea
                   id="description"
                   rows={3}
-                  value={formData.description}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  {...register("description")}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#216597] focus:border-[#216597] outline-none transition-all text-gray-900 resize-none"
                   placeholder="Tell us briefly about your project"
                 />
