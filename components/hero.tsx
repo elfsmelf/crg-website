@@ -5,8 +5,12 @@ import React from "react"
 import Image from "next/image"
 import { Shield, Star, CheckCircle2 } from "lucide-react"
 import { useState } from "react"
+import { useSourcebuster } from "@/hooks/use-sourcebuster"
+
+const WEBHOOK_URL = "https://hook.us1.make.com/4mpv343jh3ft17qyb611x8nspsie6mu7"
 
 export function Hero() {
+  const trackingData = useSourcebuster()
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -14,11 +18,50 @@ export function Hero() {
     jobType: "",
     description: ""
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Form submission logic would go here
-    alert("Thank you! We'll call you within 4 business hours.")
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+
+    const payload = {
+      ...formData,
+      date_time: new Date().toISOString(),
+      channel: trackingData?.channel || "Direct",
+      source: trackingData?.source || "",
+      medium: trackingData?.medium || "",
+      campaign: trackingData?.campaign || "",
+      content: trackingData?.content || "",
+      term: trackingData?.term || "",
+      gclid: trackingData?.gclid || "",
+      firstSource: trackingData?.firstSource || "",
+      firstMedium: trackingData?.firstMedium || "",
+      firstCampaign: trackingData?.firstCampaign || "",
+      visits: trackingData?.visits || "1",
+      pagesSeen: trackingData?.pagesSeen || "1",
+      landingPage: trackingData?.landingPage || "",
+      leadPage: trackingData?.leadPage || "",
+      referer: trackingData?.referer || "",
+    }
+
+    try {
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) throw new Error("Failed to submit")
+
+      setSubmitStatus("success")
+      setFormData({ name: "", phone: "", email: "", jobType: "", description: "" })
+    } catch {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -52,7 +95,7 @@ export function Hero() {
                 Gold Coast and Brisbane, Commercial & Industrial Electricians
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-[#5eb3e4] font-medium">
-                Fitouts &bull; Maintenance &bull; Emergency Repairs
+                Fitouts &bull; Maintenance &bull; Customised Quotes
               </p>
             </div>
 
@@ -93,7 +136,7 @@ export function Hero() {
           <div id="quote-form" className="bg-white rounded-2xl p-6 lg:p-8 shadow-2xl scroll-mt-24">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Get Your Free Quote</h2>
-              <p className="text-gray-600 text-sm">{"We'll call you within 4 business hours"}</p>
+              <p className="text-gray-600 text-sm">{"Quotes actioned immediately"}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -178,10 +221,23 @@ export function Hero() {
 
               <button
                 type="submit"
-                className="w-full bg-[#216597] hover:bg-[#1a5070] text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 text-lg"
+                disabled={isSubmitting}
+                className="w-full bg-[#216597] hover:bg-[#1a5070] disabled:bg-[#216597]/60 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 text-lg disabled:cursor-not-allowed"
               >
-                Get My Free Quote
+                {isSubmitting ? "Submitting..." : "Get My Free Quote"}
               </button>
+
+              {submitStatus === "success" && (
+                <p className="text-center text-sm text-green-600 font-medium">
+                  Thank you! Your quote will be actioned immediately.
+                </p>
+              )}
+
+              {submitStatus === "error" && (
+                <p className="text-center text-sm text-red-600 font-medium">
+                  Something went wrong. Please try again or call us directly.
+                </p>
+              )}
 
               <p className="text-center text-xs text-gray-500">
                 Your details are secure and never shared
