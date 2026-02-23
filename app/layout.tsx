@@ -10,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 export const metadata: Metadata = {
   title: "CRG Electrical Pty Ltd | Gold Coast and Brisbane Commercial & Industrial Electricians",
   description:
-    "CRG Electrical Pty Ltd - Your Tweed Coast to Brisbane Commercial and Industrial Electricians. Quotes actioned immediately.",
+    "CRG Electrical Pty Ltd - Your Tweed Coast to Brisbane Commercial and Industrial Electricians. Quotes actioned within 1 business day.",
 }
 
 export default function RootLayout({

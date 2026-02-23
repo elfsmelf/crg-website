@@ -111,7 +111,7 @@ export function Hero() {
             {/* Value Props */}
             <div className="grid sm:grid-cols-2 gap-4">
               {[
-                "Quotes actioned immediately",
+                "Quotes actioned within 1 business day",
                 "Fixed pricing – no surprises",
                 "We work around your hours",
                 "Never subcontracted"
@@ -140,7 +140,7 @@ export function Hero() {
           <div id="quote-form" className="bg-white rounded-2xl p-6 lg:p-8 shadow-2xl scroll-mt-24">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Get Your Free Quote</h2>
-              <p className="text-gray-600 text-sm">{"Quotes actioned immediately"}</p>
+              <p className="text-gray-600 text-sm">{"Quotes actioned within 1 business day"}</p>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

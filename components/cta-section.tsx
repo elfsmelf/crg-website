@@ -9,7 +9,7 @@ export function CTASection() {
             Ready to Get Started?
           </h2>
           <p className="text-white/90 text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
-            Call now for a free quote or use the form above. We respond to all enquiries within 4 business hours.
+            Call now for a free quote or use the form above. Quotes actioned within 1 business day.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
