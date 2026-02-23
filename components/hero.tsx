@@ -227,7 +227,7 @@ export function Hero() {
 
               {submitStatus === "success" && (
                 <p className="text-center text-sm text-green-600 font-medium">
-                  Thank you! Your quote will be actioned immediately.
+                  Thank you! We'll be in touch within 1 business day.
                 </p>
               )}
 
